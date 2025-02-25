@@ -1,10 +1,15 @@
 from flask import Flask, request, jsonify
+import os
 import openai
 
 app = Flask(__name__)
 
-# Replace 'your-api-key' with your actual OpenAI API key
-openai.api_key = "your-api-key"
+# Securely fetch the API key from environment variables
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+@app.route("/", methods=["GET"])
+def home():
+    return "Flask app is running!"
 
 @app.route("/generate-prompt", methods=["POST"])
 def generate_prompt():
@@ -25,4 +30,3 @@ def generate_prompt():
 if __name__ == "__main__":
     print("Flask is running on port 5000")
     app.run(host="0.0.0.0", port=5000)
-
