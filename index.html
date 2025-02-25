@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Generator</title>
+</head>
+<body>
+    <h1>AI Prompt Generator</h1>
+    <input type="text" id="topicInput" placeholder="Enter a topic">
+    <button onclick="generatePrompt()">Generate</button>
+    <p id="result"></p>
+
+    <script>
+        function generatePrompt() {
+            const topic = document.getElementById("topicInput").value;
+            fetch("https://your-app.onrender.com/generate-prompt", { // Replace with your Render URL
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ topic: topic })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = data.generated_prompt;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
